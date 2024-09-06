@@ -1,6 +1,6 @@
 module github.com/zhangweijie11/zGin
 
-go 1.20
+go 1.21
 
 require (
 	github.com/bytedance/sonic v1.11.6 // indirect
