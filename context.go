@@ -3,6 +3,7 @@ package gin
 import (
 	"errors"
 	"github.com/zhangweijie11/zGin/binding"
+	"github.com/zhangweijie11/zGin/render"
 	"math"
 	"net"
 	"net/http"
@@ -134,4 +135,38 @@ func (c *Context) reset() {
 	*c.params = (*c.params)[:0]
 	*c.skippedNodes = (*c.skippedNodes)[:0]
 
+}
+
+// http.bodyAllowedForStatus的副本函数
+func bodyAllowedForStatus(status int) bool {
+	switch {
+	case status >= 100 && status <= 199:
+		return false
+	case status == http.StatusNoContent:
+		return false
+	case status == http.StatusNotModified:
+		return false
+	}
+	return true
+}
+
+// Render 写入响应标头并呈现数据
+func (c *Context) Render(code int, r render.Render) {
+	c.Status(code)
+
+	// 如果不是涉及到响应体的状态码，就正常返回
+	if !bodyAllowedForStatus(code) {
+		r.WriteContentType(c.Writer)
+		c.Writer.WriteHeaderNow()
+		return
+	}
+
+	if err := r.Render(c.Writer); err != nil {
+		_ = c.Error(err)
+		c.Abort()
+	}
+}
+
+func (c *Context) String(code int, format string, value ...any) {
+	c.Render(code, render.String{Format: format, Data: value})
 }

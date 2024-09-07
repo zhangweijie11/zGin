@@ -327,6 +327,7 @@ func (engine *Engine) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	// 重置请求上下文
 	c.reset()
 
+	// 处理请求
 	engine.handleHTTPRequest(c)
 
 	// 将响应数据放到请求上下文中推送出去

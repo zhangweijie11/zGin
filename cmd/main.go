@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"github.com/zhangweijie11/zGin"
+	"net/http"
 )
 
 func main() {
@@ -13,10 +13,10 @@ func main() {
 		//c.String(http.StatusOK, "Hello %s", name)
 	})
 	router.GET("/user/age", func(c *gin.Context) {
-		fmt.Println("------------>", "1111")
+		c.String(http.StatusOK, "Hello World")
 		return
 		//name := c.Param("name")
-		//c.String(http.StatusOK, "Hello %s", name)
+
 	})
 	//router.Run(":8080")
 	router.GET("/user/age1", func(c *gin.Context) {
