@@ -1,6 +1,7 @@
 package gin
 
 import (
+	"os"
 	"path"
 	"reflect"
 	"runtime"
@@ -38,4 +39,21 @@ func joinPaths(absolutePath, relativePath string) string {
 // 获取处理器的名称
 func nameOfFunction(f any) string {
 	return runtime.FuncForPC(reflect.ValueOf(f).Pointer()).Name()
+}
+
+// 解析服务启动地址
+func resolveAddress(addr []string) string {
+	switch len(addr) {
+	case 0:
+		if port := os.Getenv("PORT"); port != "" {
+			debugPrint("环境变量有效端口为\"%s\"", port)
+			return ":" + port
+		}
+		debugPrint("环境变量未定义有效端口，使用默认端口 8080 ")
+		return ":8080"
+	case 1:
+		return addr[0]
+	default:
+		panic("服务地址参数过多")
+	}
 }

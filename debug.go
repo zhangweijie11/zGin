@@ -30,7 +30,7 @@ func debugPrint(format string, values ...any) {
 		format += "\n"
 	}
 
-	fmt.Fprintf(DefaultWriter, "[GIN-debug] "+format, values...)
+	fmt.Fprintf(DefaultWriter, "[zGIN-debug] "+format, values...)
 }
 
 // debug 模式下日志输出
@@ -44,5 +44,12 @@ func debugPrintRoute(httpMethod, absolutePath string, handlers HandlersChain) {
 		} else {
 			DebugPrintRouteFunc(httpMethod, absolutePath, handlerName, nuHandlers)
 		}
+	}
+}
+
+// debug 模式下错误日志输出
+func debugPrintError(err error) {
+	if err != nil && IsDebugging() {
+		fmt.Fprintf(DefaultErrorWriter, "[zGIN-debug] [ERROR] %v\n", err)
 	}
 }

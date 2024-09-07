@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/zhangweijie11/zGin"
 )
 
@@ -12,6 +13,7 @@ func main() {
 		//c.String(http.StatusOK, "Hello %s", name)
 	})
 	router.GET("/user/age", func(c *gin.Context) {
+		fmt.Println("------------>", "1111")
 		return
 		//name := c.Param("name")
 		//c.String(http.StatusOK, "Hello %s", name)
@@ -32,9 +34,5 @@ func main() {
 		//name := c.Param("name")
 		//c.String(http.StatusOK, "Hello %s", name)
 	})
-	router.POST("/admin/*name", func(c *gin.Context) {
-		return
-		//name := c.Param("name")
-		//c.String(http.StatusOK, "Hello %s", name)
-	})
+	router.Run()
 }
