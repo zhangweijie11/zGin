@@ -1,7 +1,7 @@
 package gin
 
 import (
-	"github.com/zhangweijie11/zGin/iinternal/bytesconv"
+	"github.com/zhangweijie11/zGin/internal/bytesconv"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 	"net"

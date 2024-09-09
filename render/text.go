@@ -2,7 +2,7 @@ package render
 
 import (
 	"fmt"
-	"github.com/zhangweijie11/zGin/iinternal/bytesconv"
+	"github.com/zhangweijie11/zGin/internal/bytesconv"
 	"net/http"
 )
 

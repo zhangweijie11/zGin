@@ -1,7 +1,7 @@
 package render
 
 import (
-	"github.com/zhangweijie11/zGin/iinternal/json"
+	"github.com/zhangweijie11/zGin/internal/json"
 	"net/http"
 )
 

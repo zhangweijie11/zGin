@@ -35,16 +35,6 @@ func RecoveryWithWriter(out io.Writer, recovery ...RecoveryFunc) HandlerFunc {
 	return CustomRecoveryWithWriter(out, defaultHandleRecovery)
 }
 
-// Status 将响应状态码写入响应头
-func (c *Context) Status(code int) {
-	c.Writer.WriteHeader(code)
-}
-
-func (c *Context) AbortWithStatus(code int) {
-	c.Status(code)
-	c.Writer.WriteHeaderNow()
-}
-
 func defaultHandleRecovery(c *Context, _ any) {
 	c.AbortWithStatus(http.StatusInternalServerError)
 }

@@ -150,6 +150,17 @@ func bodyAllowedForStatus(status int) bool {
 	return true
 }
 
+// Status 将响应状态码写入响应头
+func (c *Context) Status(code int) {
+	c.Writer.WriteHeader(code)
+}
+
+func (c *Context) AbortWithStatus(code int) {
+	c.Status(code)
+	c.Writer.WriteHeaderNow()
+	c.Abort()
+}
+
 // Render 写入响应标头并呈现数据
 func (c *Context) Render(code int, r render.Render) {
 	c.Status(code)
@@ -169,4 +180,8 @@ func (c *Context) Render(code int, r render.Render) {
 
 func (c *Context) String(code int, format string, value ...any) {
 	c.Render(code, render.String{Format: format, Data: value})
+}
+
+func (c *Context) JSON(code int, value ...any) {
+	c.Render(code, render.JSON{Data: value})
 }

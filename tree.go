@@ -2,7 +2,7 @@ package gin
 
 import (
 	"bytes"
-	"github.com/zhangweijie11/zGin/iinternal/bytesconv"
+	"github.com/zhangweijie11/zGin/internal/bytesconv"
 	"net/url"
 	"strings"
 	"unicode"
