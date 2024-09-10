@@ -34,7 +34,7 @@ func (err SliceValidationError) Error() string {
 
 }
 
-// 单例实例化参数验证器引擎
+// 单例模式实例化参数验证器引擎（tag 默认为 binding）
 func (v *defaultValidator) lazyinit() {
 	v.once.Do(func() {
 		v.validate = validator.New()
@@ -53,9 +53,9 @@ func (v *defaultValidator) ValidateStruct(obj any) error {
 		if value.Elem().Kind() != reflect.Struct {
 			return v.ValidateStruct(value.Elem().Interface())
 		}
-		return v.ValidateStruct(obj)
+		return v.validateStruct(obj)
 	case reflect.Struct:
-		return v.ValidateStruct(obj)
+		return v.validateStruct(obj)
 	case reflect.Slice, reflect.Array:
 		count := value.Len()
 		validateRet := make(SliceValidationError, 0)
@@ -71,6 +71,10 @@ func (v *defaultValidator) ValidateStruct(obj any) error {
 	default:
 		return nil
 	}
+}
+func (v *defaultValidator) validateStruct(obj any) error {
+	v.lazyinit()
+	return v.validate.Struct(obj)
 }
 
 // Engine 参数验证器引擎

@@ -57,3 +57,14 @@ func resolveAddress(addr []string) string {
 		panic("服务地址参数过多")
 	}
 }
+
+// 根据flag 从 content 中提取数据
+func filterFlags(content string) string {
+	for i, char := range content {
+		if char == ' ' || char == ';' {
+			return content[:i]
+		}
+	}
+
+	return content
+}
